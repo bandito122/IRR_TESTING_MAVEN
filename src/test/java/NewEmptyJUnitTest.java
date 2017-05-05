@@ -20,7 +20,7 @@ public class NewEmptyJUnitTest
     
     public NewEmptyJUnitTest()
     {
-        
+        System.out.println("...");
     }
     
     @BeforeClass
