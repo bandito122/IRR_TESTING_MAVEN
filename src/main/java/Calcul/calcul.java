@@ -22,6 +22,7 @@ public class calcul
      */
     public static double CalculateNPV(projet project)
     {
+        
         double npv = 0;
         double rendement = project.getTauxActualisation();
         int periode = project.getPeriode();
