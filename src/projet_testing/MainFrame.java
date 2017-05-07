@@ -52,6 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
         ProjectList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("comparateur de projets");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setLayout(new java.awt.GridLayout(11, 1));

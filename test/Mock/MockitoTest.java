@@ -7,12 +7,16 @@ package Mock;
 import Calcul.calcul;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+//import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
+//import org.powermock.api.mockito.PowerMockito;
+//import org.powermock.core.classloader.annotations.PrepareForTest;
 import projet.projet;
 /**
  *
  * @author vincent
  */
+
 public class MockitoTest {
     
     @Test
@@ -29,4 +33,17 @@ public class MockitoTest {
        double res = calcul.CalculateNPV(project);
        assertEquals(603.305785, res, 0.000001);
     }
+   
+   /*
+   @Test
+   public void testCalculIRR()
+   {
+       projet project = mock(projet.class);
+       when(project.function(0)).thenReturn(Double.NaN);
+       
+       double res = calcul.CalculateIRR(project, 0.1);
+       System.out.println("resultat : "+res);
+       assertEquals(0.31872930, res, 0.0000001);
+   }
+*/
 }
