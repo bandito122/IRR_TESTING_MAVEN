@@ -202,4 +202,31 @@ public class projetTest
         assertEquals(-17.5, result, 0.000001);
     }
 
+    @Test
+    public void testCalculateNPv()
+    {
+        System.out.println("calcul npv");
+        projet instance = new projet("test", -2000, 2, 0.1);
+        double flux = 1500;
+        instance.addCashflow(flux);
+        instance.addCashflow(flux);
+        
+        instance.CalculateNPV();
+       double res = instance.getNPV();
+       assertEquals(603.305785, res, 0.000001);
+    }
+    
+    @Test
+    public void testCalculateIRR()
+    {
+        System.out.println("calcul irr");
+        projet instance = new projet("test", -2000, 2, 0.1);
+        double flux = 1500;
+        instance.addCashflow(flux);
+        instance.addCashflow(flux);
+        
+        instance.CalculateIRR(0.1);
+       double res = instance.getIRR();
+       assertEquals(0.31872930, res, 0.000001);
+    }
 }

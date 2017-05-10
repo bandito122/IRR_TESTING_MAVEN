@@ -18,7 +18,7 @@ import projet.projet;
  *
  * @author vincent
  */
-public class MockTest extends TestCase{
+public class JMock extends TestCase{
     
     //Mockery context = new Mockery();
     Mockery context = new Mockery(){{
