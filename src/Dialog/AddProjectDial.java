@@ -6,6 +6,7 @@
 package Dialog;
 
 import Calcul.calcul;
+import Exception.NumberNotValidException;
 import java.util.Hashtable;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -203,15 +204,24 @@ public class AddProjectDial extends javax.swing.JDialog {
     }//GEN-LAST:event_CloseButtonActionPerformed
 
     private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
-        projet project = new projet(NameTF.getText(),Double.parseDouble(InvestTF.getText()),Integer.parseInt(PeriodTF.getText()),Double.parseDouble(ActualisationTF.getText()));
-        for(int i=0;i<listModel.size();i++)
-        {
-            project.addCashflow((double)listModel.get(i));
-        }
-        project.CalculateNPV();
-        project.CalculateIRR(0.1);
-        ((MainFrame)this.getParent()).addProject(project);
-        this.setVisible(false);
+       try
+       {
+           projet project = new projet(NameTF.getText(),Double.parseDouble(InvestTF.getText()),Integer.parseInt(PeriodTF.getText()),Double.parseDouble(ActualisationTF.getText()));
+           for(int i=0;i<listModel.size();i++)
+            {
+                project.addCashflow((double)listModel.get(i));
+            }
+        //project.CalculateNPV();
+        //project.CalculateIRR(0.1);
+            ((MainFrame)this.getParent()).addProject(project);
+            this.setVisible(false);
+       }
+       catch(NumberNotValidException e)
+       {
+           JOptionPane.showMessageDialog(this, e.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       }
+        
+        
     }//GEN-LAST:event_OkButtonActionPerformed
 
     /**

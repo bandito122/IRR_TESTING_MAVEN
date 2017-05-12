@@ -5,6 +5,7 @@
  */
 package Calcul;
 
+import Exception.NumberNotValidException;
 import projet.projet;
 
 /**
@@ -18,6 +19,7 @@ public class calcul {
      * @param project projet dont on souhaite avoir le coefficient NPV
      * @return coefficient NPV
      */
+
     public static double CalculateNPV(projet project)
     {
         double npv=0;

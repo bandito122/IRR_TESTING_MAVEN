@@ -5,6 +5,9 @@
  */
 package Calcul;
 
+import Exception.NumberNotValidException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,8 +38,9 @@ public class calculTest
     /**
      * Test of CalculateNPV method, of class calcul.
      */
+
     @Test
-    public void testCalculateNPV()
+    public void testCalculateNPVValid() throws NumberNotValidException
     {
         System.out.println("CalculateNPV");
         /*
@@ -47,15 +51,18 @@ public class calculTest
          // TODO review the generated test code and remove the default call to fail.
          System.out.println("npv = "+result);
          */
+        double npv = 0;
+ 
         projet proj2 = new projet("projet 2", -7500, 4, 0.1);
         proj2.addCashflow(3000);
         proj2.addCashflow(5000);
         proj2.addCashflow(1200);
         proj2.addCashflow(4000);
+        npv= calcul.CalculateNPV(proj2);
+        System.out.println("NPV de " +proj2.getName()+" : "+npv);
+        assertEquals(2993.13571477358, npv, 0.000000001);
+        
 
-        double npv2 = calcul.CalculateNPV(proj2);
-        //System.out.println("npv de "+proj2.getName()+" : "+npv2);
-        assertEquals(2993.135715, npv2, 0.000001);
     }
 
     /**
@@ -74,15 +81,24 @@ public class calculTest
          // TODO review the generated test code and remove the default call to fail.
          System.out.println("IRR : "+result);
          */
-        projet proj2 = new projet("projet 2", -7500, 4, 0.1);
-        proj2.addCashflow(3000);
-        proj2.addCashflow(5000);
-        proj2.addCashflow(1200);
-        proj2.addCashflow(4000);
+        try
+        {
+            projet proj2 = new projet("projet 2", -7500, 4, 0.1);
+            proj2.addCashflow(3000);
+            proj2.addCashflow(5000);
+            proj2.addCashflow(1200);
+            proj2.addCashflow(4000);
+            double irr = calcul.CalculateIRR(proj2, 0.1);
+            //System.out.println("IRR de " +proj2.getName()+" : "+irr);
+            assertEquals(0.276668413, irr, 0.000000001);
+        }
+        catch(NumberNotValidException e)
+        {
+            
+        }
 
-        double irr = calcul.CalculateIRR(proj2, 0.1);
-        //System.out.println("IRR de " +proj2.getName()+" : "+irr);
-        assertEquals(0.276668413, irr, 0.000000001);
+
+
     }
 
 }

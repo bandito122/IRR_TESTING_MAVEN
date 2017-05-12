@@ -6,6 +6,7 @@
 package projet;
 
 import Calcul.calcul;
+import Exception.NumberNotValidException;
 import java.util.Hashtable;
 
 /**
@@ -52,8 +53,16 @@ public class projet {
      * @param p période du projet
      * @param rend taux d'actualisation considéré par année
      */
-    public projet(String n,Hashtable<Integer,Double> flux,int p,double rend)
+    public projet(String n,Hashtable<Integer,Double> flux,int p,double rend) throws NumberNotValidException
     {
+        if(rend>1 || rend <0)
+        {
+            throw new NumberNotValidException("rendement non valide");
+        }
+        if(p<0)
+        {
+            throw new NumberNotValidException("période non valide");
+        }
         nom = n;
         cashflow = flux;
         periode = p;
@@ -66,8 +75,20 @@ public class projet {
      * @param p période du projet
      * @param rend taux d'actualisation considéré (par année)
      */
-    public projet(String n,double invest,int p,double rend)
+    public projet(String n,double invest,int p,double rend) throws NumberNotValidException
     {
+        
+        if(rend>1 || rend <0)
+        {
+            System.out.println("okkkk");
+            throw new NumberNotValidException("rendement non valide");
+        }
+        if(p<0)
+        {
+            System.out.println("okkkfffffffffk");
+            throw new NumberNotValidException("période non valide");
+        }
+        
         nom = n;
         cashflow = new Hashtable<Integer,Double>();
         cashflow.put(0, invest);

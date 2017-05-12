@@ -5,6 +5,9 @@
  */
 
 import Calcul.calcul;
+import Exception.NumberNotValidException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,8 +41,10 @@ public class integrationTest
     @Test
     public void hello()
     {
-        projet proj2 = new projet("projet 2", -7500, 4, 0.1);
-        proj2.addCashflow(3000);
+        projet proj2;
+        try {
+            proj2 = new projet("projet 2", -7500, 4, 0.1);
+            proj2.addCashflow(3000);
         proj2.addCashflow(5000);
         proj2.addCashflow(1200);
         proj2.addCashflow(4000);
@@ -48,5 +53,9 @@ public class integrationTest
         double irr = calcul.CalculateIRR(proj2, 0.1);
         System.out.println("npv de " + proj2.getName() + " : " + npv2);
         System.out.println("IRR de " + proj2.getName() + " : " + irr);
+        } catch (NumberNotValidException ex) {
+            Logger.getLogger(integrationTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
