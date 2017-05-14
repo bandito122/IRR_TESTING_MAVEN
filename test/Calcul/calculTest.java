@@ -6,6 +6,7 @@
 package Calcul;
 
 import Exception.CashFlowException;
+import Exception.NameException;
 import Exception.NumberNotValidException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ public class calculTest
      */
 
     @Test
-    public void testCalculateNPVValid() throws NumberNotValidException, CashFlowException
+    public void testCalculateNPVValid() throws NumberNotValidException, CashFlowException, NameException
     {
         System.out.println("CalculateNPV");
         /*
@@ -96,6 +97,8 @@ public class calculTest
         catch(NumberNotValidException e)
         {
             
+        } catch (NameException ex) {
+            Logger.getLogger(calculTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

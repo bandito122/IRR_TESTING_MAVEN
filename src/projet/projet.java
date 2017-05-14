@@ -7,6 +7,7 @@ package projet;
 
 import Calcul.calcul;
 import Exception.CashFlowException;
+import Exception.NameException;
 import Exception.NumberNotValidException;
 import java.util.Hashtable;
 
@@ -54,8 +55,10 @@ public class projet {
      * @param p période du projet
      * @param rend taux d'actualisation considéré par année
      */
-    public projet(String n,Hashtable<Integer,Double> flux,int p,double rend) throws NumberNotValidException, CashFlowException
+    public projet(String n,Hashtable<Integer,Double> flux,int p,double rend) throws NumberNotValidException, CashFlowException, NameException
     {
+        //System.out.println("-----"+flux.size());
+        
         if(rend>1 || rend <0)
         {
             throw new NumberNotValidException("rendement non valide");
@@ -64,10 +67,13 @@ public class projet {
         {
             throw new NumberNotValidException("période non valide");
         }
-        if(p<flux.size())
+        if(flux==null || p<flux.size()-1)
         {
-            
             throw new CashFlowException("cash flow exception");
+        }
+        if(n==null || n.equals(""))
+        {
+            throw new NameException("Nom non valide");
         }
         System.out.println(flux.size());
         nom = n;
@@ -82,9 +88,9 @@ public class projet {
      * @param p période du projet
      * @param rend taux d'actualisation considéré (par année)
      */
-    public projet(String n,double invest,int p,double rend) throws NumberNotValidException
+    public projet(String n,double invest,int p,double rend) throws NumberNotValidException, NameException
     {
-        
+        System.out.println("---------");
         if(rend>1 || rend <0)
         {
             System.out.println("okkkk");
@@ -94,6 +100,10 @@ public class projet {
         {
             System.out.println("okkkfffffffffk");
             throw new NumberNotValidException("période non valide");
+        }
+        if(n==null || n.equals(""))
+        {
+            throw new NameException("Nom non valide");
         }
         
         nom = n;

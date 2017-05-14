@@ -5,7 +5,9 @@
  */
 package projet;
 
+import Dialog.AddProjectDial;
 import Exception.CashFlowException;
+import Exception.NameException;
 import Exception.NumberNotValidException;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -14,6 +16,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import projet_testing.MainFrame;
 
 /**
  *
@@ -36,48 +39,145 @@ public class projetTest
     {
     }
     
-    
+    //cas de test T1
     @Test(expected=NumberNotValidException.class)
-    public void testRendNegatif() throws NumberNotValidException
+    public void testRendNegatif() throws NumberNotValidException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,0,- 0.1);
     }
+    //cas de test T1
     @Test(expected=NumberNotValidException.class)
-    public void testRendPositif10() throws NumberNotValidException
+    public void testRendNegatif2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet("projet 2", flux,0,- 0.1);
+    }
+    
+    //cas de test T2
+    @Test(expected=NumberNotValidException.class)
+    public void testRendPositif() throws NumberNotValidException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,0, 10);
     }
+    //cas de test T2
     @Test(expected=NumberNotValidException.class)
-    public void testPeriodeNegatif() throws NumberNotValidException, CashFlowException
+    public void testRendPositif2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);        
+        projet proj2 = new projet("projet 2", flux,0, 10);
+    }  
+    
+    //cas de test T3
+    @Test(expected=NumberNotValidException.class)
+    public void testPeriodeNegatif() throws NumberNotValidException, CashFlowException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,-1, 0.1);
         proj2.addCashflow(2000);
     }
+    //cas de test T3
     @Test(expected=NumberNotValidException.class)
-    public void testPeriodeMaxInt() throws NumberNotValidException
+    public void testPeriodeNegatif2() throws NumberNotValidException, CashFlowException, NameException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0); 
+        flux.put(1, -7500.0);
+        projet proj2 = new projet("projet 2", flux,-1, 0.1);
+
+    }   
+    
+    //cas de test T
+    @Test(expected=NumberNotValidException.class)
+    public void testPeriodeMaxInt() throws NumberNotValidException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,Integer.MAX_VALUE+1, 0.1);
     }
     
+    
+    //cas de test T4
     @Test(expected=CashFlowException.class)
-    public void testPeriodeAndCashFlow() throws NumberNotValidException,CashFlowException
+    public void testPeriodeAndCashFlow() throws NumberNotValidException,CashFlowException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,1, 0.1);
         proj2.addCashflow(200);
         proj2.addCashflow(2000);
 
     }
-
+    //cas de test T4
     @Test(expected=CashFlowException.class)
-    public void testPeriodeAndCashFlow2() throws NumberNotValidException,CashFlowException
+    public void testPeriodeAndCashFlow2() throws NumberNotValidException,CashFlowException, NameException
     {
+        System.out.println("---******---");
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
         flux.put(0, -7500.0);
         flux.put(1,2000.0);
-        flux.put(1,2000.0);
+        flux.put(2,2000.0);
         projet proj2 = new projet("projet 2", flux,1, 0.1);
-
-
+    }
+    
+    
+    //cas de test T5
+    @Test(expected=NameException.class)
+    public void testNomVide() throws NumberNotValidException, NameException
+    {
+        projet proj2 = new projet("", -7500,0, 0.1);
+    }
+    //cas de test T5
+    @Test(expected=NameException.class)
+    public void testNomVide2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet("", flux,0, 0.1);
+    }
+    
+    
+    //cas de test T6
+    @Test(expected=CashFlowException.class)
+    public void testCashFlowNull() throws NumberNotValidException,CashFlowException, NameException
+    {
+        Hashtable<Integer,Double> flux = null;
+        projet proj2 = new projet("projet 2", flux,1, 0.1);
+    }
+    
+    
+    //cas de test T7
+    @Test(expected=NameException.class)
+    public void testNomNull() throws NumberNotValidException,CashFlowException, NameException
+    {
+        projet proj2 = new projet(null, -7500,0, 0.1);
+    }   
+    //cas de test T7
+    @Test(expected=NameException.class)
+    public void testNomNull2() throws NumberNotValidException,CashFlowException, NameException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet(null, flux,0, 0.1);
+    }   
+    
+    
+    
+    //cas de test T8
+    @Test(expected=NumberFormatException.class)
+    public void testRendCarac() throws NumberNotValidException, NameException
+    {
+        projet project = new projet("projet 2",-7500,0,Double.parseDouble("od"));
+        
+    }
+    //cas de test T9
+    @Test(expected=NumberFormatException.class)
+    public void testPeriodeCarac() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet project = new projet("projet 2",-7500,Integer.parseInt("od"),0.1);
+    }
+    
+    //cas de test T10
+    @Test(expected=NumberFormatException.class)
+    public void testPeriodeDec() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet project = new projet("projet 2",-7500,Integer.parseInt("1.1"),0.1);
     }
     
     
@@ -86,14 +186,14 @@ public class projetTest
     
     
     @Test
-    public void testNPV() throws NumberNotValidException
+    public void testNPV() throws NumberNotValidException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,-4, -10); 
     }
     
     
     @Test
-    public void testIRR() throws NumberNotValidException
+    public void testIRR() throws NumberNotValidException, NameException
     {
         projet proj2 = new projet("projet 2", -7500,-4, 0.1); 
     }
@@ -128,6 +228,8 @@ public class projetTest
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
 
@@ -159,6 +261,8 @@ public class projetTest
         catch (NumberNotValidException ex) 
         {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -186,6 +290,8 @@ public class projetTest
         } 
         catch (NumberNotValidException ex) 
         {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -225,6 +331,8 @@ public class projetTest
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -252,6 +360,8 @@ public class projetTest
         } 
         catch (NumberNotValidException ex) 
         {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -281,6 +391,8 @@ public class projetTest
         } 
         catch (NumberNotValidException ex) 
         {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -315,6 +427,8 @@ public class projetTest
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -343,6 +457,8 @@ public class projetTest
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -368,6 +484,8 @@ public class projetTest
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -392,6 +510,8 @@ public class projetTest
         {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CashFlowException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NameException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 

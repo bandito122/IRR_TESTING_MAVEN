@@ -7,6 +7,7 @@ package Dialog;
 
 import Calcul.calcul;
 import Exception.CashFlowException;
+import Exception.NameException;
 import Exception.NumberNotValidException;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -187,8 +188,17 @@ public class AddProjectDial extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        double cashflow = Double.parseDouble(JOptionPane.showInputDialog(this, "entrer le cashflow", (double)0));
-        listModel.addElement(cashflow);
+        
+        try
+        {
+            double cashflow = Double.parseDouble(JOptionPane.showInputDialog(this, "entrer le cashflow", (double)0));
+            listModel.addElement(cashflow);
+        }
+       catch(NumberFormatException ex)
+       {
+           JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       }        
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -214,17 +224,27 @@ public class AddProjectDial extends javax.swing.JDialog {
             {
                 project.addCashflow((double)listModel.get(i));
             }
-        project.CalculateNPV();
-        project.CalculateIRR(0.1);
+            project.CalculateNPV();
+            project.CalculateIRR(0.1);
             ((MainFrame)this.getParent()).addProject(project);
             this.setVisible(false);
        }
        catch(NumberNotValidException e)
        {
            JOptionPane.showMessageDialog(this, e.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
-       } catch (CashFlowException ex) {
-            Logger.getLogger(AddProjectDial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       } 
+       catch (CashFlowException ex) 
+       {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       } 
+       catch (NameException ex) 
+       {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       }
+       catch(NumberFormatException ex)
+       {
+           JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       }
         
         
     }//GEN-LAST:event_OkButtonActionPerformed
