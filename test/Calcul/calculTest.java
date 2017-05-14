@@ -5,6 +5,7 @@
  */
 package Calcul;
 
+import Exception.CashFlowException;
 import Exception.NumberNotValidException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class calculTest
      */
 
     @Test
-    public void testCalculateNPVValid() throws NumberNotValidException
+    public void testCalculateNPVValid() throws NumberNotValidException, CashFlowException
     {
         System.out.println("CalculateNPV");
         /*
@@ -69,7 +70,7 @@ public class calculTest
      * Test of CalculateIRR method, of class calcul.
      */
     @Test
-    public void testCalculateIRR()
+    public void testCalculateIRR() throws CashFlowException
     {
         System.out.println("CalculateIRR");
         /*
