@@ -21,9 +21,6 @@ import projet.projet;
 public class integrationTest
 {
 
-    public integrationTest()
-    {
-    }
 
     @BeforeClass
     public static void setUpClass()
@@ -39,7 +36,7 @@ public class integrationTest
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void hello()
+    public void testIntegration()
     {
         projet proj2;
         try {
@@ -49,10 +46,12 @@ public class integrationTest
         proj2.addCashflow(1200);
         proj2.addCashflow(4000);
 
-        double npv2 = calcul.CalculateNPV(proj2);
+        double npv = calcul.CalculateNPV(proj2);
         double irr = calcul.CalculateIRR(proj2, 0.1);
-        System.out.println("npv de " + proj2.getName() + " : " + npv2);
-        System.out.println("IRR de " + proj2.getName() + " : " + irr);
+        
+        assertEquals(2993.13571477, npv, 0.000001);
+        assertEquals(0.27666841, irr, 0.000001);
+        
         } catch (NumberNotValidException ex) {
             Logger.getLogger(integrationTest.class.getName()).log(Level.SEVERE, null, ex);
         }
