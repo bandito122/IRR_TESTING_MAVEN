@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Calcul;
+package Exception;
 
 /**
  *
  * @author kerem
  */
-public class NewClass {
-    
+public class CashFlowException extends Exception{
+        public CashFlowException(String msg)
+    {
+        super(msg);
+    }
 }

@@ -5,6 +5,7 @@
  */
 
 import Calcul.calcul;
+import Exception.CashFlowException;
 import Exception.NumberNotValidException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,8 @@ public class integrationTest
         assertEquals(0.27666841, irr, 0.000001);
         
         } catch (NumberNotValidException ex) {
+            Logger.getLogger(integrationTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CashFlowException ex) {
             Logger.getLogger(integrationTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         

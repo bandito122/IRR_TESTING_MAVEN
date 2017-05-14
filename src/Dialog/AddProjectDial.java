@@ -6,8 +6,11 @@
 package Dialog;
 
 import Calcul.calcul;
+import Exception.CashFlowException;
 import Exception.NumberNotValidException;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -219,7 +222,9 @@ public class AddProjectDial extends javax.swing.JDialog {
        catch(NumberNotValidException e)
        {
            JOptionPane.showMessageDialog(this, e.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
-       }
+       } catch (CashFlowException ex) {
+            Logger.getLogger(AddProjectDial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
     }//GEN-LAST:event_OkButtonActionPerformed

@@ -6,7 +6,10 @@
 package projet_testing;
 
 import Calcul.calcul;
+import Exception.CashFlowException;
 import Exception.NumberNotValidException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import projet.projet;
 
@@ -24,12 +27,16 @@ public class Projet_testing
     {
 
         
-        try
+        /*try
         {
            projet proj = new projet("projet 1", -232000, 15, 0.1);
             for (int i = 0; i < 15; i++)
             {
-                proj.addCashflow(38800);
+               try {
+                   proj.addCashflow(38800);
+               } catch (CashFlowException ex) {
+                   Logger.getLogger(Projet_testing.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
 
             double npv = calcul.CalculateNPV(proj);
@@ -81,7 +88,7 @@ public class Projet_testing
         {
             System.out.println(e.getMessage());
         }
-        
+     */   
     }
 
 }
