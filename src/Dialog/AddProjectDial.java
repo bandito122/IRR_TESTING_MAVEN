@@ -211,8 +211,8 @@ public class AddProjectDial extends javax.swing.JDialog {
             {
                 project.addCashflow((double)listModel.get(i));
             }
-        //project.CalculateNPV();
-        //project.CalculateIRR(0.1);
+        project.CalculateNPV();
+        project.CalculateIRR(0.1);
             ((MainFrame)this.getParent()).addProject(project);
             this.setVisible(false);
        }

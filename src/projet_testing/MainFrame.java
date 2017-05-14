@@ -6,6 +6,7 @@
 package projet_testing;
 
 import Dialog.AddProjectDial;
+import Dialog.ProjectSelectionDial;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import projet.projet;
@@ -103,6 +104,11 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.add(jLabel5);
 
         SelectProjectButton.setText("Sélection de projet");
+        SelectProjectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelectProjectButtonActionPerformed(evt);
+            }
+        });
         jPanel2.add(SelectProjectButton);
 
         getContentPane().add(jPanel2);
@@ -175,6 +181,11 @@ public class MainFrame extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "Vous devez d'abord sélectionner un projet", "Erreur de calcul du IRR", JOptionPane.ERROR_MESSAGE, null);
     }//GEN-LAST:event_CalculateIRRButtonActionPerformed
+
+    private void SelectProjectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectProjectButtonActionPerformed
+        ProjectSelectionDial psd = new ProjectSelectionDial(this,true,listModel);
+        psd.setVisible(true);
+    }//GEN-LAST:event_SelectProjectButtonActionPerformed
 
     /**
      * @param args the command line arguments
