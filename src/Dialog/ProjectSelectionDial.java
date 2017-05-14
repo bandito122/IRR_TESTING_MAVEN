@@ -6,6 +6,7 @@
 package Dialog;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import projet.projet;
 
 /**
@@ -177,7 +178,9 @@ public class ProjectSelectionDial extends javax.swing.JDialog {
             }
             
         }
-        else{return;}
+        else{
+            JOptionPane.showMessageDialog(this, "vous devez d'abord sélectionner un criète de sélection", "erreur de sélection de critère", JOptionPane.ERROR_MESSAGE, null);
+            return;}
         
         projet bProject = (projet)dlm.get(bp);
         bestProjectTF.setText("projet n°"+(bp+1)+" ("+bProject.getName()+")");
