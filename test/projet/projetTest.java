@@ -179,23 +179,21 @@ public class projetTest
     {
         projet project = new projet("projet 2",-7500,Integer.parseInt("1.1"),0.1);
     }
-    
-    
-    
-    
-    
-    
+    //cas de test T11
     @Test
     public void testNPV() throws NumberNotValidException, NameException
     {
-        projet proj2 = new projet("projet 2", -7500,-4, -10); 
+        projet proj2 = new projet("projet 2", -7500,0, 0.1); 
+        proj2.CalculateNPV();
+        assertEquals(-7500,proj2.getNPV(),0);
     }
-    
-    
+    //cas de test T12
     @Test
     public void testIRR() throws NumberNotValidException, NameException
     {
-        projet proj2 = new projet("projet 2", -7500,-4, 0.1); 
+        projet proj2 = new projet("projet 2", -7500,0, 0.1);
+        proj2.CalculateIRR(0.1);
+        assertEquals(-6818.181818,proj2.getIRR(),0);
     }
     /**
      * Test of addCashflow method, of class projet.

@@ -197,7 +197,12 @@ public class AddProjectDial extends javax.swing.JDialog {
        catch(NumberFormatException ex)
        {
            JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
-       }        
+       }
+       catch(NullPointerException ex)
+       {
+           //JOptionPane.showMessageDialog(this, ex.getMessage(), "INFORMATION !", JOptionPane.INFORMATION_MESSAGE);
+       }
+        
 
     }//GEN-LAST:event_addButtonActionPerformed
 
