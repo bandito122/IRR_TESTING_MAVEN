@@ -9,6 +9,8 @@ import Calcul.calcul;
 import Exception.CashFlowException;
 import Exception.NameException;
 import Exception.NumberNotValidException;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
@@ -63,7 +65,7 @@ public class projet {
         {
             throw new NumberNotValidException("rendement non valide");
         }
-        if(p<0 || p==0)
+        if(p<=0 )
         {
             throw new NumberNotValidException("période non valide");
         }
@@ -74,6 +76,15 @@ public class projet {
         if(n==null || n.equals(""))
         {
             throw new NameException("Nom non valide");
+        }
+                Enumeration<Integer> enume=flux.keys();
+        while(enume.hasMoreElements())
+        {
+            
+            if(enume.nextElement()<0)
+            {
+                throw new CashFlowException("cash flow exception");
+            }
         }
         System.out.println(flux.size());
         nom = n;
@@ -96,7 +107,7 @@ public class projet {
             System.out.println("okkkk");
             throw new NumberNotValidException("rendement non valide");
         }
-        if(p<0)
+        if(p<=0)
         {
             System.out.println("okkkfffffffffk");
             throw new NumberNotValidException("période non valide");
@@ -105,6 +116,7 @@ public class projet {
         {
             throw new NameException("Nom non valide");
         }
+
         
         nom = n;
         cashflow = new Hashtable<Integer,Double>();
@@ -123,6 +135,7 @@ public class projet {
         {
             throw new CashFlowException("cash flow exception");
         }
+
         int p = cashflow.size();
         cashflow.put(p, flux);
     }

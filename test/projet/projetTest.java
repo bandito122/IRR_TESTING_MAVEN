@@ -162,7 +162,7 @@ public class projetTest
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
         flux.put(0, -7500.0);
         flux.put(1,1000.0);
-        projet proj2 = new projet(null, flux,0, 0.1);
+        projet proj2 = new projet(null, flux,1, 0.1);
     }   
     
     
@@ -218,22 +218,54 @@ public class projetTest
         projet proj2 = new projet("projet 2", flux,Integer.parseInt("1.1"), 0.1);
     }   
     
+
     //cas de test T11
-    @Test
-    public void testNPV() throws NumberNotValidException, NameException
+    @Test(expected=NumberNotValidException.class)
+    public void testPeriodezero() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("projet 2", -7500,0, 0.1); 
-        proj2.CalculateNPV();
-        assertEquals(-7500,proj2.getNPV(),0);
+        projet project = new projet("projet 2",-7500,0,0.1);
     }
+    //cas de test T11
+    @Test(expected=NumberNotValidException.class)
+    public void testPeriodezero2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet("projet 2", flux,0, 0.1);
+    }   
     //cas de test T12
-    @Test
-    public void testIRR() throws NumberNotValidException, NameException
+    @Test(expected=CashFlowException.class)
+    public void testcahsFlowNegatKey() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("projet 2", -7500,0, 0.1);
-        proj2.CalculateIRR(0.1);
-        assertEquals(-6818.181818,proj2.getIRR(),0);
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        flux.put(-1, 1000.0);
+        projet proj2 = new projet("projet 2", flux,1, 0.1);
+    } 
+    
+    
+    
+    //cas de test T13
+    @Test
+    public void testNPV() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateNPV();
+        
+        assertEquals(-6590.909091,proj2.getNPV(),0.000001);
     }
+    //cas de test T14
+    @Test
+    public void testIRR() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateIRR(0.1);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+    }
+    
+    
     
     
     
@@ -388,7 +420,8 @@ public class projetTest
         projet instance;
         try 
         {
-            instance = new projet("test", -15, 0, 0.1);
+            instance = new projet("test", -15, 1, 0.1);
+            instance.addCashflow(-15.0);
             double result = instance.getCashflow(periode);
             // TODO review the generated test code and remove the default call to fail.
             /*if(result==-15)
@@ -402,6 +435,8 @@ public class projetTest
         {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NameException ex) {
+            Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CashFlowException ex) {
             Logger.getLogger(projetTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
