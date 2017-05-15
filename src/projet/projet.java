@@ -63,7 +63,7 @@ public class projet {
         {
             throw new NumberNotValidException("rendement non valide");
         }
-        if(p<0)
+        if(p<0 || p==0)
         {
             throw new NumberNotValidException("période non valide");
         }
@@ -220,6 +220,7 @@ public class projet {
         {
             res += cashflow.get(i)*Math.pow((1+x), -i);
         }
+        System.out.println("fonction"+res);
         return res;
     }
     
@@ -236,6 +237,7 @@ public class projet {
         {
             res += (cashflow.get(i)*(-i))*Math.pow((1+x), (-1-i));
         }
+        System.out.println("derivee"+res);
         return res;
     }
     

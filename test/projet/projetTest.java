@@ -41,9 +41,10 @@ public class projetTest
     
     //cas de test T1
     @Test(expected=NumberNotValidException.class)
-    public void testRendNegatif() throws NumberNotValidException, NameException
+    public void testRendNegatif() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("projet 2", -7500,0,- 0.1);
+        projet proj2 = new projet("projet 2", -7500,1,- 0.1);
+        proj2.addCashflow(1000.0);
     }
     //cas de test T1
     @Test(expected=NumberNotValidException.class)
@@ -51,22 +52,25 @@ public class projetTest
     {
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
         flux.put(0, -7500.0);
-        projet proj2 = new projet("projet 2", flux,0,- 0.1);
+        flux.put(1, 1000.0);
+        projet proj2 = new projet("projet 2", flux,1,- 0.1);
     }
     
     //cas de test T2
     @Test(expected=NumberNotValidException.class)
-    public void testRendPositif() throws NumberNotValidException, NameException
+    public void testRendPositif() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("projet 2", -7500,0, 10);
+        projet proj2 = new projet("projet 2", -7500,1, 10);
+        proj2.addCashflow(1000.0);
     }
     //cas de test T2
     @Test(expected=NumberNotValidException.class)
     public void testRendPositif2() throws NumberNotValidException, NameException, CashFlowException
     {
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
-        flux.put(0, -7500.0);        
-        projet proj2 = new projet("projet 2", flux,0, 10);
+        flux.put(0, -7500.0);
+        flux.put(1, 1000.0);        
+        projet proj2 = new projet("projet 2", flux,1, 10);
     }  
     
     //cas de test T3
@@ -119,9 +123,10 @@ public class projetTest
     
     //cas de test T5
     @Test(expected=NameException.class)
-    public void testNomVide() throws NumberNotValidException, NameException
+    public void testNomVide() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("", -7500,0, 0.1);
+        projet proj2 = new projet("", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
     }
     //cas de test T5
     @Test(expected=NameException.class)
@@ -129,7 +134,8 @@ public class projetTest
     {
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
         flux.put(0, -7500.0);
-        projet proj2 = new projet("", flux,0, 0.1);
+        flux.put(1,1000.0);
+        projet proj2 = new projet("", flux,1, 0.1);
     }
     
     
@@ -146,7 +152,8 @@ public class projetTest
     @Test(expected=NameException.class)
     public void testNomNull() throws NumberNotValidException,CashFlowException, NameException
     {
-        projet proj2 = new projet(null, -7500,0, 0.1);
+        projet proj2 = new projet(null, -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
     }   
     //cas de test T7
     @Test(expected=NameException.class)
@@ -154,6 +161,7 @@ public class projetTest
     {
         Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
         flux.put(0, -7500.0);
+        flux.put(1,1000.0);
         projet proj2 = new projet(null, flux,0, 0.1);
     }   
     
@@ -161,17 +169,39 @@ public class projetTest
     
     //cas de test T8
     @Test(expected=NumberFormatException.class)
-    public void testRendCarac() throws NumberNotValidException, NameException
+    public void testRendCarac() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet project = new projet("projet 2",-7500,0,Double.parseDouble("od"));
+        projet project = new projet("projet 2",-7500,1,Double.parseDouble("od"));
+        project.addCashflow(1000.0);
         
     }
+    //cas de test T8
+    @Test(expected=NumberFormatException.class)
+    public void testRendCarac2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        flux.put(1,1000.0);
+        projet proj2 = new projet("projet 2", flux,1, Double.parseDouble("od"));
+        
+    }
+    
+    
     //cas de test T9
     @Test(expected=NumberFormatException.class)
     public void testPeriodeCarac() throws NumberNotValidException, NameException, CashFlowException
     {
         projet project = new projet("projet 2",-7500,Integer.parseInt("od"),0.1);
     }
+    //cas de test T9
+    @Test(expected=NumberFormatException.class)
+    public void testPeriodeCarac2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet("projet 2", flux,Integer.parseInt("od"), 0.1);
+    }
+
     
     //cas de test T10
     @Test(expected=NumberFormatException.class)
@@ -179,6 +209,15 @@ public class projetTest
     {
         projet project = new projet("projet 2",-7500,Integer.parseInt("1.1"),0.1);
     }
+    //cas de test T10
+    @Test(expected=NumberFormatException.class)
+    public void testPeriodeDec2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, -7500.0);
+        projet proj2 = new projet("projet 2", flux,Integer.parseInt("1.1"), 0.1);
+    }   
+    
     //cas de test T11
     @Test
     public void testNPV() throws NumberNotValidException, NameException
@@ -195,6 +234,9 @@ public class projetTest
         proj2.CalculateIRR(0.1);
         assertEquals(-6818.181818,proj2.getIRR(),0);
     }
+    
+    
+    
     /**
      * Test of addCashflow method, of class projet.
      */
