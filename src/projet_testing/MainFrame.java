@@ -7,6 +7,10 @@ package projet_testing;
 
 import Dialog.AddProjectDial;
 import Dialog.ProjectSelectionDial;
+import Exception.CashFlowException;
+import Exception.NumberNotValidException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import projet.projet;
@@ -155,9 +159,15 @@ public class MainFrame extends javax.swing.JFrame {
         int index = ProjectList.getSelectedIndex();
         if(index != -1)
         {
-            projet project = (projet)listModel.get(index);
-            project.CalculateNPV();
-            JOptionPane.showMessageDialog(this, "Le NPV du projet est : "+project.getNPV(), "Affichage du NPV", JOptionPane.INFORMATION_MESSAGE, null);
+            try {
+                projet project = (projet)listModel.get(index);
+                project.CalculateNPV();
+                JOptionPane.showMessageDialog(this, "Le NPV du projet est : "+project.getNPV(), "Affichage du NPV", JOptionPane.INFORMATION_MESSAGE, null);
+            } 
+            catch (CashFlowException ex) 
+            {
+               JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else
             JOptionPane.showMessageDialog(this, "Vous devez d'abord sélectionner un projet", "Erreur de calcul du NPV", JOptionPane.ERROR_MESSAGE, null);
@@ -176,6 +186,8 @@ public class MainFrame extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this, "l'IRR du projet est  : "+project.getIRR(), "Affichage de l'IRR", JOptionPane.INFORMATION_MESSAGE);
             }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Erreur de saisie du taux d'actualisation", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
+            } catch (NumberNotValidException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
             }
         }
         else

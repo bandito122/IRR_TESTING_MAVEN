@@ -5,6 +5,7 @@
  */
 package Calcul;
 
+import Exception.CashFlowException;
 import Exception.NumberNotValidException;
 import projet.projet;
 
@@ -20,8 +21,13 @@ public class calcul {
      * @return coefficient NPV
      */
 
-    public static double CalculateNPV(projet project)
+    public static double CalculateNPV(projet project) throws CashFlowException
     {
+        
+        if(project.getCashflow().size()-1<project.getPeriode())
+        {
+            throw new CashFlowException("problème cashflow plus petit que la période");
+        }
         double npv=0;
         double rendement = project.getTauxActualisation();
         int periode = project.getPeriode();
@@ -40,8 +46,12 @@ public class calcul {
      * @param rend coefficient estimé du taux d'actualisation
      * @return La valeur calculée de l'IRR
      */
-    public static double CalculateIRR(projet project,double rend)
+    public static double CalculateIRR(projet project,double rend) throws NumberNotValidException
     {
+        if(rend<0 || rend>0.1)
+        {
+            throw new NumberNotValidException("Probleme rendement irr");
+        }
         double diff = 1;
         while(Math.abs(diff)>0.00001)
         {

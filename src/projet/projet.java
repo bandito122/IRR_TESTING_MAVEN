@@ -198,7 +198,7 @@ public class projet {
     /**
      * Permet de founir le NPV du projet avec les données actuelles de ce dernier
      */
-    public void CalculateNPV()
+    public void CalculateNPV() throws CashFlowException
     {
         this.npv = calcul.CalculateNPV(this);
     }
@@ -207,7 +207,7 @@ public class projet {
      * Permet de fournir l'IRR du projet avec les données actuelles de ce dernier
      * @param taux taux d'actualisation estimé
      */
-    public void CalculateIRR(double taux)
+    public void CalculateIRR(double taux) throws NumberNotValidException
     {
         this.irr = calcul.CalculateIRR(this, taux);
     }

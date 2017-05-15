@@ -255,17 +255,135 @@ public class projetTest
         
         assertEquals(-6590.909091,proj2.getNPV(),0.000001);
     }
-    //cas de test T14
+
+    //cas de test T15
     @Test
-    public void testIRR() throws NumberNotValidException, NameException, CashFlowException
+    public void testNPVRend0() throws NumberNotValidException, NameException, CashFlowException
     {
-        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        projet proj2 = new projet("projet 2", -7500,1, 0);
         proj2.addCashflow(1000.0);
-        proj2.CalculateIRR(0.1);
-        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+        proj2.CalculateNPV();
+        
+        assertEquals(-6500,proj2.getNPV(),0);
+    }
+    //cas de test T16
+    @Test
+    public void testNPVRend1() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateNPV();
+        
+        assertEquals(-7000,proj2.getNPV(),0);
+    }
+    //cas de test T17
+    @Test(expected=CashFlowException.class)
+    public void testCashFlow() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 1);
+        proj2.CalculateNPV();
+
     }
     
     
+    //cas de test T18
+    @Test(expected=NumberFormatException.class)
+    public void testCashFlowValueCara() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", Double.parseDouble("od"),1, 1);
+
+    }
+    //cas de test T18
+    @Test(expected=NumberFormatException.class)
+    public void testCashFlowValueCara2() throws NumberNotValidException, NameException, CashFlowException
+    {
+        Hashtable<Integer,Double> flux = new Hashtable<Integer,Double>();
+        flux.put(0, Double.parseDouble("od"));
+        flux.put(-1, 1000.0);
+        projet proj2 = new projet("projet 2", flux,1, 0.1);
+
+    }
+    //cas de test T19
+    @Test(expected=NullPointerException.class)
+    public void testCashFlowValueNull() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", Double.parseDouble(null),1, 1);
+
+    }
+    
+    
+    
+    /* TEST IRR
+    -----------------------------
+    */
+    
+    
+    //cas de test T1
+    @Test(expected=NumberNotValidException.class)
+    public void testRendIRRNegatif() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1,0.1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateIRR(-0.1);
+    }
+
+    
+    
+    //cas de test T2
+    @Test(expected=NumberNotValidException.class)
+    public void testRendIRRPositif() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateIRR(10);
+    }
+    //cas de test T8
+    @Test(expected=NumberFormatException.class)
+    public void testRendIRRCarac() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet project = new projet("projet 2",-7500,1,0.1);
+        project.addCashflow(1000.0);
+        project.CalculateIRR(Double.parseDouble("od"));
+        
+    }
+    //cas de test T13
+    @Test
+    public void testIRR009() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+        proj2.CalculateIRR(0.09);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+        proj2.CalculateIRR(0.1);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+        proj2.CalculateIRR(0);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+        
+    }
+    //cas de test T14
+    @Test
+    public void testIRR01() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+
+        proj2.CalculateIRR(0.1);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+
+        
+    }
+    //cas de test T15
+    @Test
+    public void testIRR0() throws NumberNotValidException, NameException, CashFlowException
+    {
+        projet proj2 = new projet("projet 2", -7500,1, 0.1);
+        proj2.addCashflow(1000.0);
+
+        proj2.CalculateIRR(0);
+        assertEquals(-0.8667,proj2.getIRR(),0.0001);
+
+        
+    }
     
     
     
