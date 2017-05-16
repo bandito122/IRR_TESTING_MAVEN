@@ -38,7 +38,11 @@ public class projetTest
     public static void tearDownClass()
     {
     }
+        
     
+    /**
+     * Test of projet() constructor, of class projet.
+     */
     //cas de test T1
     @Test(expected=NumberNotValidException.class)
     public void testRendNegatif() throws NumberNotValidException, NameException, CashFlowException
