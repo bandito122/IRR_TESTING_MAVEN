@@ -280,14 +280,7 @@ public class projetTest
         
         assertEquals(-7000,proj2.getNPV(),0);
     }
-    //cas de test T17
-    @Test(expected=CashFlowException.class)
-    public void testCashFlow() throws NumberNotValidException, NameException, CashFlowException
-    {
-        projet proj2 = new projet("projet 2", -7500,1, 1);
-        proj2.CalculateNPV();
 
-    }
     
     
     //cas de test T18

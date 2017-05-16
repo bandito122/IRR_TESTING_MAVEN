@@ -24,10 +24,10 @@ public class calcul {
     public static double CalculateNPV(projet project) throws CashFlowException
     {
         
-        if(project.getCashflow().size()-1<project.getPeriode())
+        /*if(project.getCashflow().size()-1<project.getPeriode())
         {
             throw new CashFlowException("problème cashflow plus petit que la période");
-        }
+        }*/
         double npv=0;
         double rendement = project.getTauxActualisation();
         int periode = project.getPeriode();
