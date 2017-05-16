@@ -2,6 +2,7 @@ package Mock;
 
 
 import Calcul.calcul;
+import Exception.CashFlowException;
 import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -25,7 +26,7 @@ public class JMock extends TestCase{
         setImposteriser(ClassImposteriser.INSTANCE);
     }};
     
-    public void testCalculNPV()
+    public void testCalculNPV() throws CashFlowException
     {
         //set up
         projet project = context.mock(projet.class);

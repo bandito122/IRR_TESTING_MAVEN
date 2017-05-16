@@ -5,6 +5,7 @@
  */
 package Mock;
 import Calcul.calcul;
+import Exception.CashFlowException;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 //import org.mockito.Mockito;
@@ -20,7 +21,7 @@ import projet.projet;
 public class MockitoTest {
     
     @Test
-   public void testCalculNPV()
+   public void testCalculNPV() throws CashFlowException
    {
        projet project = mock(projet.class);
        when(project.getTauxActualisation()).thenReturn(0.1);
